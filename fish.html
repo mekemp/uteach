@@ -9,17 +9,6 @@
   font-family: helvetica, arial, sans-serif;
   font-size: 1.2em;
 }
-input {
-  padding: 5px 10px;
-  font-size: 1em;
-}
-button {
-  padding: 5px 10px;
-  font-size: 1em;
-}
-.game {
-  display: none;
-}
 .instructions {
   max-width: 800px;
   line-height: 1.5em;
@@ -126,12 +115,7 @@ button {
   </style>
 </head>
 <body>
-<form class='input'>
-  To start, pick a random number from 1 to 100: <input name='seed' type="number" required min="1" max="100"/>
-  <button type='submit'>Start</button>
-</form>
 <div class='game'>
-  <a href='#' class='restart'>Restart</a>
   <div>Game version: <span class='version'></span></div>
   <p class='instructions'><strong>Instructions:</strong> You've collected fish from 2 different lakes and put them in separate tanks. Your goal is to figure out if the body lengths of the 2 groups are the same or different.
   Click the tanks repeatedly to pull out fish and measure them and stop when you think you have enough specimens to make a decision.
@@ -176,31 +160,24 @@ let list1 = [];
 let list2 = [];
 
 const options = [];
-means.forEach(m1=>{
-  means.forEach(m2=>{
+means.forEach(function(m1) {
+  means.forEach(function(m2) {
     options.push([m1,m2]);
   });
 })
-let chosen = 0;
-
+const chosen = Math.floor(Math.random()*options.length);
 start();
 
 function start() {
-  if(chosen === null) return;
-  
-  list1 = [];
-  list2 = [];
-  $('.input').hide();
-  $('.game').show();
   $('.version').text(chosen+1);
   render();
 }
 
-$('.bag1').on('click',() => {
+$('.bag1').on('click',function () {
   list1.push(jStat.normal.sample(options[chosen][0], 1).toFixed(2));
   render();
 })
-$('.bag2').on('click',() => {
+$('.bag2').on('click',function() {
   list2.push(jStat.normal.sample(options[chosen][1], 1).toFixed(2));
   render();
 })
@@ -214,17 +191,6 @@ function render() {
     $('.list2').append('<li>'+l+'</li>');
   });
 }
-
-$('.restart').on('click', () => {
-  $('.input').show();
-  $('.game').hide();
-})
-
-$('.input').on('submit',(e) => {
-  e.preventDefault();
-  chosen = parseInt($('input[name="seed"]').val())%(options.length);
-  start();
-});
   </script>
 </body>
 </html>
