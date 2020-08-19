@@ -124,7 +124,51 @@ button {
   background-color: #a9e644;
 }
   </style>
-  <script>
+</head>
+<body>
+<form class='input'>
+  To start, pick a random number from 1 to 100: <input name='seed' type="number" required min="1" max="100"/>
+  <button type='submit'>Start</button>
+</form>
+<div class='game'>
+  <a href='#' class='restart'>Restart</a>
+  <div>Game version: <span class='version'></span></div>
+  <p class='instructions'><strong>Instructions:</strong> You've collected fish from 2 different lakes and put them in separate tanks. Your goal is to figure out if the body lengths of the 2 groups are the same or different.
+  Click the tanks repeatedly to pull out fish and measure them and stop when you think you have enough specimens to make a decision.
+  </p>
+  <div class='bags'>
+    <div class='bag bag1'>
+      <div class='label'>Tank 1</div>
+      <div class="fish orange">
+        <div class="fish-body">
+          <div class="eye">
+            <div class="pupil"></div>
+          </div>
+        </div>
+        <div class="fin"></div>
+        <div class="fin fin-bottom"></div>
+      </div>
+    </div>
+    <div class='bag bag2'>
+      <div class='label'>Tank 2</div>
+      <div class="fish green">
+        <div class="fish-body">
+          <div class="eye">
+            <div class="pupil"></div>
+          </div>
+        </div>
+        <div class="fin"></div>
+        <div class="fin fin-bottom"></div>
+      </div>
+    </div>
+  </div>
+  <h4>Measurements:</h4>
+  <div class='collected'>
+    <ul class='list list1'></ul>
+    <ul class='list list2'></ul>
+  </div>
+</div>
+    <script>
   const s = 1;
 const means = [4.6,4.9];
 
@@ -182,49 +226,5 @@ $('.input').on('submit',(e) => {
   start();
 });
   </script>
-</head>
-<body>
-<form class='input'>
-  To start, pick a random number from 1 to 100: <input name='seed' type="number" required min="1" max="100"/>
-  <button type='submit'>Start</button>
-</form>
-<div class='game'>
-  <a href='#' class='restart'>Restart</a>
-  <div>Game version: <span class='version'></span></div>
-  <p class='instructions'><strong>Instructions:</strong> You've collected fish from 2 different lakes and put them in separate tanks. Your goal is to figure out if the body lengths of the 2 groups are the same or different.
-  Click the tanks repeatedly to pull out fish and measure them and stop when you think you have enough specimens to make a decision.
-  </p>
-  <div class='bags'>
-    <div class='bag bag1'>
-      <div class='label'>Tank 1</div>
-      <div class="fish orange">
-        <div class="fish-body">
-          <div class="eye">
-            <div class="pupil"></div>
-          </div>
-        </div>
-        <div class="fin"></div>
-        <div class="fin fin-bottom"></div>
-      </div>
-    </div>
-    <div class='bag bag2'>
-      <div class='label'>Tank 2</div>
-      <div class="fish green">
-        <div class="fish-body">
-          <div class="eye">
-            <div class="pupil"></div>
-          </div>
-        </div>
-        <div class="fin"></div>
-        <div class="fin fin-bottom"></div>
-      </div>
-    </div>
-  </div>
-  <h4>Measurements:</h4>
-  <div class='collected'>
-    <ul class='list list1'></ul>
-    <ul class='list list2'></ul>
-  </div>
-</div>
 </body>
 </html>
