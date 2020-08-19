@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Fish</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.3/jstat.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <style>
+  body {
+  font-family: helvetica, arial, sans-serif;
+  font-size: 1.2em;
+}
+input {
+  padding: 5px 10px;
+  font-size: 1em;
+}
+button {
+  padding: 5px 10px;
+  font-size: 1em;
+}
+.game {
+  display: none;
+}
+.instructions {
+  max-width: 800px;
+  line-height: 1.5em;
+}
+.version {
+  font-weight: bold;
+  font-size: 1.8em;
+  vertical-align: middle;
+}
+.game .bags {
+  display: flex;
+  flex-wrap: wrap;
+}
+.game .bags .bag {
+  flex: 1;
+  padding: 20px 50px 50px;
+  text-align: center;
+  margin: 30px 10px;
+  max-width: 300px;
+  cursor: pointer;
+  user-select: none;
+  background: #42a1c6;
+  border: 5px solid #000;
+  border-top: 10px solid white;
+}
+.game .bags .bag .label {
+  font-size: 1.2em;
+  color: #fff;
+}
+.collected {
+  display: flex;
+}
+.collected .list {
+  flex: 1;
+  max-width: 300px;
+  padding: 0 50px;
+  margin: 0px 10px;
+  border: 1px solid #ddd;
+}
+.list li {
+  padding: 3px 0;
+}
+
+
+/* Franklin's Container */
+.fish {
+  width: 150px;
+  height: 100px;
+  margin-left: -35px;
+  display: inline-block;
+}
+
+/* Franklin */
+.fish-body {
+  position: relative;
+  margin-top: 30px;
+  margin-left: 40px;
+  border-radius: 50%;
+  width: 150px; 
+  height: 100px;
+}
+
+.eye {
+  position: absolute;
+  margin-left: 100px;
+  margin-top: 20px;
+  z-index: 1;
+  background-color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+}
+
+.pupil {
+  position: absolute;
+  z-index: 2;
+  margin-left: 5px;
+  margin-top: 5px;
+  background-color: black;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+}
+
+.fin {
+  margin-top: -100px; 
+  border-radius: 50%;
+  transform: rotate(40deg);
+  width: 80px;
+  height: 50px;
+}
+
+.fin-bottom {
+  margin-top: -10px;
+  transform: rotate(-40deg);
+}
+
+.orange .fin, .orange .fish-body {
+  background-color: orange;
+}
+.green .fin, .green .fish-body {
+  background-color: #a9e644;
+}
+  </style>
+  <script>
+  const s = 1;
+const means = [4.6,4.9];
+
+let list1 = [];
+let list2 = [];
+
+const options = [];
+means.forEach(m1=>{
+  means.forEach(m2=>{
+    options.push([m1,m2]);
+  });
+})
+let chosen = 0;
+
+start();
+
+function start() {
+  if(chosen === null) return;
+  
+  list1 = [];
+  list2 = [];
+  $('.input').hide();
+  $('.game').show();
+  $('.version').text(chosen+1);
+  render();
+}
+
+$('.bag1').on('click',() => {
+  list1.push(jStat.normal.sample(options[chosen][0], 1).toFixed(2));
+  render();
+})
+$('.bag2').on('click',() => {
+  list2.push(jStat.normal.sample(options[chosen][1], 1).toFixed(2));
+  render();
+})
+
+function render() {
+  $('.collected .list').empty();
+  list1.forEach(l=>{
+    $('.list1').append('<li>'+l+'</li>');
+  });
+  list2.forEach(l=>{
+    $('.list2').append('<li>'+l+'</li>');
+  });
+}
+
+$('.restart').on('click', () => {
+  $('.input').show();
+  $('.game').hide();
+})
+
+$('.input').on('submit',(e) => {
+  e.preventDefault();
+  chosen = parseInt($('input[name="seed"]').val())%(options.length);
+  start();
+});
+  </scrip>
+</head>
+<body>
+<form class='input'>
+  To start, pick a random number from 1 to 100: <input name='seed' type="number" required min="1" max="100"/>
+  <button type='submit'>Start</button>
+</form>
+<div class='game'>
+  <a href='#' class='restart'>Restart</a>
+  <div>Game version: <span class='version'></span></div>
+  <p class='instructions'><strong>Instructions:</strong> You've collected fish from 2 different lakes and put them in separate tanks. Your goal is to figure out if the body lengths of the 2 groups are the same or different.
+  Click the tanks repeatedly to pull out fish and measure them and stop when you think you have enough specimens to make a decision.
+  </p>
+  <div class='bags'>
+    <div class='bag bag1'>
+      <div class='label'>Tank 1</div>
+      <div class="fish orange">
+        <div class="fish-body">
+          <div class="eye">
+            <div class="pupil"></div>
+          </div>
+        </div>
+        <div class="fin"></div>
+        <div class="fin fin-bottom"></div>
+      </div>
+    </div>
+    <div class='bag bag2'>
+      <div class='label'>Tank 2</div>
+      <div class="fish green">
+        <div class="fish-body">
+          <div class="eye">
+            <div class="pupil"></div>
+          </div>
+        </div>
+        <div class="fin"></div>
+        <div class="fin fin-bottom"></div>
+      </div>
+    </div>
+  </div>
+  <h4>Measurements:</h4>
+  <div class='collected'>
+    <ul class='list list1'></ul>
+    <ul class='list list2'></ul>
+  </div>
+</div>
+</body>
+</html>
