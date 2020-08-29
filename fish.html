@@ -193,10 +193,10 @@ $('.bag2').on('click',function() {
 function render() {
   $('.collected .list').empty();
   list1.forEach(l=>{
-    $('.list1').append('<li>'+l+window.config.UNIT+'</li>');
+    $('.list1').append('<li>'+l+" "+window.config.UNIT+'</li>');
   });
   list2.forEach(l=>{
-    $('.list2').append('<li>'+l+window.config.UNIT+'</li>');
+    $('.list2').append('<li>'+l+" "+window.config.UNIT+'</li>');
   });
 }
   </script>
