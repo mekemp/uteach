@@ -4,6 +4,14 @@
   <title>Fish</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.3/jstat.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    window.config = {
+      UNIT: "cm",
+      MEAN_TANK1: 4.6,
+      MEAN_TANK2: 4.9,
+      STDEV: 1
+    }
+  </script>
   <style>
   body {
   font-family: helvetica, arial, sans-serif;
@@ -153,8 +161,8 @@
   </div>
 </div>
     <script>
-  const s = 1;
-const means = [4.6,4.9];
+  const s = window.config.STDEV;
+const means = [window.config.MEAN_TANK1,window.config.MEAN_TANK2];
 
 let list1 = [];
 let list2 = [];
@@ -185,10 +193,10 @@ $('.bag2').on('click',function() {
 function render() {
   $('.collected .list').empty();
   list1.forEach(l=>{
-    $('.list1').append('<li>'+l+'</li>');
+    $('.list1').append('<li>'+l+window.config.UNIT+'</li>');
   });
   list2.forEach(l=>{
-    $('.list2').append('<li>'+l+'</li>');
+    $('.list2').append('<li>'+l+window.config.UNIT+'</li>');
   });
 }
   </script>
