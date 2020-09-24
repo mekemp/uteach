@@ -115,7 +115,7 @@
 <div class='game'>
   <div class='bags'>
     <div class='bag bag1'>
-      <div class='label'>Tank 1</div>
+      <div class='label'>Fish Tank</div>
       <div class="fish orange">
         <div class="fish-body">
           <div class="eye">
@@ -130,18 +130,18 @@
   <h4>Measurements (cm):</h4>
   <div class='collected'>
     <ul class='list list1'></ul>
-    <ul class='list list2'></ul>
   </div>
 </div>
     <script>
   const s = window.config.STDEV;
+      const m = window.config.MEAN;
 
 let list1 = [];
 
 render();
 
 $('.bag1').on('click',function () {
-  list1.push(jStat.normal.sample(options[chosen][0], s).toFixed(2));
+  list1.push(jStat.normal.sample(m, s).toFixed(2));
   render();
 })
 
