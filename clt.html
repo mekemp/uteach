@@ -6,8 +6,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
     window.config = {
-      MEAN: 4.6,
-      STDEV: 1
+      MIN: 4.6 - Math.sqrt(3),
+      MAX: 4.6 + Math.sqrt(3)
     }
   </script>
   <style>
@@ -133,15 +133,12 @@
   </div>
 </div>
     <script>
-  const s = window.config.STDEV;
-      const m = window.config.MEAN;
-
 let list1 = [];
 
 render();
 
 $('.bag1').on('click',function () {
-  list1.push(jStat.normal.sample(m, s).toFixed(2));
+  list1.push(jStat.uniform.sample(window.config.MIN, window.config.MAX).toFixed(2));
   render();
 })
 
