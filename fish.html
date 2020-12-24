@@ -190,7 +190,7 @@ $('.bag1').on('click',function () {
   render();
 })
 $('.bag2').on('click',function() {
-  list2.push(jStat.normal.sample(options[chosen][1][0], options[chosen][1][1]).toFixed(2));
+  list2.push(jStat.uniform.sample(options[chosen][1][0], options[chosen][1][1]).toFixed(2));
   render();
 })
 
