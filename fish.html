@@ -7,9 +7,10 @@
   <script>
     window.config = {
       UNIT: "cm",
-      MEAN_TANK1: 4.6,
-      MEAN_TANK2: 4.9,
-      STDEV: 1
+      MIN_TANK1: 4.6 - Math.sqrt(3),
+      MAX_TANK1: 4.6 + Math.sqrt(3),
+      MIN_TANK2: 4.9 - Math.sqrt(3),
+      MAX_TANK2: 4.9 + Math.sqrt(3)
     }
   </script>
   <style>
@@ -161,15 +162,18 @@
   </div>
 </div>
     <script>
-  const s = window.config.STDEV;
 const means = [window.config.MEAN_TANK1,window.config.MEAN_TANK2];
+const uniform_params = [
+  [window.config.MIN_TANK1, window.config.MAX_TANK1],
+  [window.config.MIN_TANK2, window.config.MAX_TANK2]
+]
 
 let list1 = [];
 let list2 = [];
 
 const options = [];
-means.forEach(function(m1) {
-  means.forEach(function(m2) {
+uniformParams.forEach(function(m1) {
+  unformParams.forEach(function(m2) {
     options.push([m1,m2]);
   });
 })
@@ -182,11 +186,11 @@ function start() {
 }
 
 $('.bag1').on('click',function () {
-  list1.push(jStat.normal.sample(options[chosen][0], 1).toFixed(2));
+  list1.push(jStat.uniform.sample(options[chosen][0][0], options[chosen][0][1]).toFixed(2));
   render();
 })
 $('.bag2').on('click',function() {
-  list2.push(jStat.normal.sample(options[chosen][1], 1).toFixed(2));
+  list2.push(jStat.normal.sample(options[chosen][1][0], options[chosen][1][1]).toFixed(2));
   render();
 })
 
